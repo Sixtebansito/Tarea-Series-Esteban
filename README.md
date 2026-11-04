@@ -1,101 +1,99 @@
-# 📺 API REST de Series - Spring Boot
+# API REST de Series - Spring Boot
 
-API REST completa para la gestión de un catálogo de series de televisión, implementando las operaciones CRUD (Create, Read, Update, Delete) desarrollada con **Spring Boot**, **Spring Data JPA** y base de datos **H2**.
+API REST para la gestion de un catalogo de series de television, implementando las operaciones CRUD (Create, Read, Update, Delete) utilizando Spring Boot, Spring Data JPA y base de datos H2.
 
 ---
 
-## 📋 Especificaciones del Proyecto
+## Especificaciones del Proyecto
 
-### Entidad `Serie`
-Contiene los siguientes campos:
+### Entidad Serie
+La entidad Serie contiene los siguientes campos:
 
-| Campo | Tipo | Descripción |
+| Campo | Tipo | Descripcion |
 | :--- | :--- | :--- |
-| `id` | `Long` | Identificador único autogenerado (`@Id`, `@GeneratedValue`) |
+| `id` | `Long` | Identificador unico autogenerado (`@Id`, `@GeneratedValue`) |
 | `titulo` | `String` | Nombre de la serie |
 | `plataforma` | `String` | Plataforma de streaming (Netflix, HBO, Prime, Disney+, etc.) |
-| `calificacion` | `Double` | Calificación del 1 al 10 |
+| `calificacion` | `Double` | Calificacion del 1 al 10 |
 
 ---
 
-## 📁 Estructura del Proyecto
+## Estructura del Proyecto
 
-El proyecto sigue una arquitectura en capas limpia, fiel al proyecto visto en clase:
+El proyecto sigue una arquitectura en capas:
 
 ```text
 series/
 ├── pom.xml
 ├── mvnw / mvnw.cmd
-├── postman_collection.json                   # Colección lista para importar en Postman
-├── endpoints.pdf                             # Documento con las capturas/fotos de las pruebas
+├── ENDPOINTS.pdf                             # Documento con las capturas de las pruebas
 ├── README.md
 ├── src/
 │   ├── main/
 │   │   ├── java/com/munoz/series/
-│   │   │   ├── SeriesApplication.java
+│   │   │   ├── SeriesApplication.java        # Clase principal
 │   │   │   ├── controller/
 │   │   │   │   └── SerieController.java      # Controlador REST (/api/series)
 │   │   │   ├── service/
-│   │   │   │   └── SerieService.java         # Lógica de negocio
+│   │   │   │   └── SerieService.java         # Logica de negocio
 │   │   │   ├── repository/
 │   │   │   │   └── SerieRepository.java      # Repositorio JPA
 │   │   │   └── models/
 │   │   │       └── Serie.java                # Entidad JPA con Lombok
 │   │   └── resources/
-│   │       └── application.properties        # Configuración H2 y servidor
+│   │       └── application.properties        # Configuracion de H2 y servidor
 │   └── test/
 │       └── java/com/munoz/series/
-│           └── SeriesApplicationTests.java   # Pruebas unitarias/integración
+│           └── SeriesApplicationTests.java   # Prueba de carga de contexto
 ```
 
 ---
 
-## 🚀 Requisitos y Ejecución
+## Ejecucion en IntelliJ IDEA
 
-### Prerrequisitos
-- Java 27 (o JDK compatible)
-- Maven (el proyecto ya incluye el wrapper `./mvnw`)
+### Requisitos previos
+- IntelliJ IDEA (Community o Ultimate)
+- JDK 27 (o JDK compatible configurado en Project Structure)
 
-### Ejecutar el proyecto
-Abre una terminal en la carpeta `series/` y ejecuta:
+### Pasos para abrir y ejecutar el proyecto
 
-```bash
-./mvnw spring-boot:run
-```
+1. **Abrir el proyecto:**
+   - Abre IntelliJ IDEA.
+   - Selecciona **File** > **Open...** (o **Open** en la pantalla de bienvenida).
+   - Navega hasta la carpeta `series` y seleccionala.
+   - Elige **Open as Project**.
 
-O en Windows:
-```cmd
-mvnw.cmd spring-boot:run
-```
+2. **Sincronizacion de Maven:**
+   - IntelliJ detectara automaticamente el archivo `pom.xml`.
+   - Espera a que termine de descargar las dependencias y de indexar el proyecto (veras el progreso en la barra inferior).
 
-La aplicación se iniciará en el puerto **8080**:
-```text
-http://localhost:8080
-```
-
-### Ejecutar las pruebas automatizadas
-Para ejecutar las pruebas del proyecto que validan el ciclo CRUD y casos edge:
-
-```bash
-./mvnw test
-```
+3. **Ejecutar la aplicacion:**
+   - En el explorador de archivos del proyecto, navega a:
+     `src/main/java/com/munoz/series/SeriesApplication.java`
+   - Haz clic derecho sobre el archivo o haz clic en el icono verde de ejecucion (Run) al lado del metodo `main`.
+   - Selecciona **Run 'SeriesApplication'** (o presiona `Shift + F10`).
+   - La aplicacion iniciara en el puerto **8080**:
+     ```text
+     http://localhost:8080
+     ```
 
 ---
 
-## 🗄️ Consola de Base de Datos H2
+## Consola de Base de Datos H2
 
-La base de datos H2 se almacena en archivo local `./data/seriesdb` para mantener los datos guardados:
+La base de datos H2 se almacena en el archivo local `./data/seriesdb` con persistencia:
 
 - **URL de la consola**: [http://localhost:8080/h2-console](http://localhost:8080/h2-console)
-- **JDBC URL**: `jdbc:h2:file:./data/seriesdb`
+- **Driver Class**: `org.h2.Driver`
+- **JDBC URL**: `jdbc:h2:file:./data/seriesdb;AUTO_SERVER=TRUE`
 - **User Name**: `sa`
 - **Password**: *(dejar en blanco)*
 
 ---
 
-## 🔧 Endpoints de la API
+## Endpoints de la API
 
-| Método HTTP | URL | Descripción | Código de Respuesta |
+| Metodo HTTP | URL | Descripcion | Codigo de Respuesta |
 | :--- | :--- | :--- | :--- |
 | **GET** | `/api/series` | Listar todas las series | `200 OK` |
 | **GET** | `/api/series/{id}` | Buscar una serie por su ID | `200 OK` / `404 Not Found` |
@@ -105,10 +103,10 @@ La base de datos H2 se almacena en archivo local `./data/seriesdb` para mantener
 
 ---
 
-## 🧪 Ejemplos de Peticiones (cURL y JSON)
+## Ejemplos de Peticiones
 
 ### 1. Crear una nueva serie (POST)
-**Endpoint:** `POST http://localhost:8080/api/series`
+**URL:** `POST http://localhost:8080/api/series`
 
 **Body (JSON):**
 ```json
@@ -119,14 +117,7 @@ La base de datos H2 se almacena en archivo local `./data/seriesdb` para mantener
 }
 ```
 
-**Comando cURL:**
-```bash
-curl -X POST http://localhost:8080/api/series \
-  -H "Content-Type: application/json" \
-  -d '{"titulo": "Stranger Things", "plataforma": "Netflix", "calificacion": 8.7}'
-```
-
-**Respuesta (`201 Created`):**
+**Respuesta (201 Created):**
 ```json
 {
   "id": 1,
@@ -139,14 +130,9 @@ curl -X POST http://localhost:8080/api/series \
 ---
 
 ### 2. Listar todas las series (GET)
-**Endpoint:** `GET http://localhost:8080/api/series`
+**URL:** `GET http://localhost:8080/api/series`
 
-**Comando cURL:**
-```bash
-curl -X GET http://localhost:8080/api/series
-```
-
-**Respuesta (`200 OK`):**
+**Respuesta (200 OK):**
 ```json
 [
   {
@@ -161,14 +147,9 @@ curl -X GET http://localhost:8080/api/series
 ---
 
 ### 3. Buscar serie por ID (GET)
-**Endpoint:** `GET http://localhost:8080/api/series/1`
+**URL:** `GET http://localhost:8080/api/series/1`
 
-**Comando cURL:**
-```bash
-curl -X GET http://localhost:8080/api/series/1
-```
-
-**Respuesta (`200 OK`):**
+**Respuesta (200 OK):**
 ```json
 {
   "id": 1,
@@ -178,16 +159,14 @@ curl -X GET http://localhost:8080/api/series/1
 }
 ```
 
-**Caso Edge (ID no existe):**
-```bash
-curl -X GET http://localhost:8080/api/series/999
-```
-*Respuesta:* `404 Not Found`
+**Caso de ID inexistente:**
+- **URL:** `GET http://localhost:8080/api/series/999`
+- **Respuesta:** `404 Not Found`
 
 ---
 
 ### 4. Actualizar serie existente (PUT)
-**Endpoint:** `PUT http://localhost:8080/api/series/1`
+**URL:** `PUT http://localhost:8080/api/series/1`
 
 **Body (JSON):**
 ```json
@@ -198,14 +177,7 @@ curl -X GET http://localhost:8080/api/series/999
 }
 ```
 
-**Comando cURL:**
-```bash
-curl -X PUT http://localhost:8080/api/series/1 \
-  -H "Content-Type: application/json" \
-  -d '{"titulo": "Stranger Things Temporada 4", "plataforma": "Netflix", "calificacion": 9.2}'
-```
-
-**Respuesta (`200 OK`):**
+**Respuesta (200 OK):**
 ```json
 {
   "id": 1,
@@ -215,59 +187,23 @@ curl -X PUT http://localhost:8080/api/series/1 \
 }
 ```
 
-**Caso Edge (ID no existe):**
-```bash
-curl -X PUT http://localhost:8080/api/series/999 \
-  -H "Content-Type: application/json" \
-  -d '{"titulo": "No Existe", "plataforma": "Ninguna", "calificacion": 1.0}'
-```
-*Respuesta:* `404 Not Found`
+**Caso de ID inexistente:**
+- **URL:** `PUT http://localhost:8080/api/series/999`
+- **Respuesta:** `404 Not Found`
 
 ---
 
 ### 5. Eliminar serie (DELETE)
-**Endpoint:** `DELETE http://localhost:8080/api/series/1`
-
-**Comando cURL:**
-```bash
-curl -X DELETE http://localhost:8080/api/series/1
-```
+**URL:** `DELETE http://localhost:8080/api/series/1`
 
 **Respuesta:** `204 No Content`
 
-**Caso Edge (ID no existe):**
-```bash
-curl -X DELETE http://localhost:8080/api/series/999
-```
-*Respuesta:* `404 Not Found`
+**Caso de ID inexistente:**
+- **URL:** `DELETE http://localhost:8080/api/series/999`
+- **Respuesta:** `404 Not Found`
 
 ---
 
-## 📮 Pruebas con Postman y Evidencias Fotográficas
+## Evidencias de Pruebas
 
-> 📸 **Fotos / Capturas de Pruebas:**
-> Las fotos solicitadas de las pruebas de cada endpoint se encuentran en el archivo **`endpoints.pdf`** adjunto en la raíz del proyecto.
-
-Se incluye además en la raíz del proyecto el archivo `postman_collection.json`.
-
-### Cómo importarlo en Postman:
-1. Abre Postman.
-2. Haz clic en el botón **Import** (arriba a la izquierda).
-3. Selecciona o arrastra el archivo `series/postman_collection.json`.
-4. Encontrarás la colección **"API REST de Series - Spring Boot"** con todas las peticiones listas para ejecutar (incluyendo casos de éxito y casos edge con 404).
-
----
-
-## 📤 Subir a Repositorio GitHub
-
-Para subir el proyecto a tu cuenta de GitHub:
-
-```bash
-cd series
-git init
-git add .
-git commit -m "feat: implementacion inicial API REST de Series con Spring Boot y H2"
-git branch -M main
-git remote add origin https://github.com/TU_USUARIO/TU_REPOSITORIO.git
-git push -u origin main
-```
+Las fotos y capturas de pantalla solicitadas que demuestran las pruebas y el correcto funcionamiento de cada uno de los endpoints CRUD se encuentran en el archivo **`ENDPOINTS.pdf`** ubicado en la raiz de este proyecto.
