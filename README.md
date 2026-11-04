@@ -26,7 +26,8 @@ El proyecto sigue una arquitectura en capas limpia, fiel al proyecto visto en cl
 series/
 ├── pom.xml
 ├── mvnw / mvnw.cmd
-├── postman_collection.json
+├── postman_collection.json                   # Colección lista para importar en Postman
+├── endpoints.pdf                             # Documento con las capturas/fotos de las pruebas
 ├── README.md
 ├── src/
 │   ├── main/
@@ -242,9 +243,12 @@ curl -X DELETE http://localhost:8080/api/series/999
 
 ---
 
-## 📮 Pruebas con Postman
+## 📮 Pruebas con Postman y Evidencias Fotográficas
 
-Se incluye en la raíz del proyecto el archivo `postman_collection.json`.
+> 📸 **Fotos / Capturas de Pruebas:**
+> Las fotos solicitadas de las pruebas de cada endpoint se encuentran en el archivo **`endpoints.pdf`** adjunto en la raíz del proyecto.
+
+Se incluye además en la raíz del proyecto el archivo `postman_collection.json`.
 
 ### Cómo importarlo en Postman:
 1. Abre Postman.
